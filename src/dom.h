@@ -8,18 +8,35 @@ typedef att_map unordered_map<string, string>;
 
 
 // Represents the DOM data structure
-
 class node
 {	
 	public:
+		// Constructors
 		node();
 		~node();	
-		int node_type()=0;
-		string node_name()=0;
+
+		// Accessors
+		virtual bool has_children() const;
+		virtual int node_type() const;
+		virtual std::string get_name() const;
+		virtual std::string get_value() const;
+		virtual std::string get_content() const;
+	
+		// Mutators
+		virtual void append_child(node child);
+		virtual void replace_child(node replace, node child);
+		virtual void remove_child(node child);
 
 	protected:
+		// TODO: Clean this up
 		// Children of this node. Vector for dynamic size
 		std::vector<node> children; 
+		int node_type;
+		std::string node_name;
+		node first_child;
+		node last_child;
+		std::string node_value;
+		std::string text_content;
 }
 
 // Element Class
@@ -28,12 +45,17 @@ class node
 class element: public node
 {
 	public:
+		// Constructors
 		element(string name, att_map attributes, vector<node> children);
-		// Accessor methods
-		
-	protected:
-		string name;
+
+		// Accessors        
+		att_map get_attributes() const;
+
+		// Mutators
+
+	private:
 		att_map attributes;
+		
 }
 
 // Text class 
