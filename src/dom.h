@@ -10,7 +10,8 @@
 typedef std::unordered_map<std::string, std::string> att_map;
 
 
-// Represents the DOM data structure
+// Node abstract base class
+
 class node
 {	
 	public:
@@ -19,27 +20,25 @@ class node
 		~node();	
 
 		// Accessors
+		virtual int get_node_type() const = 0;
 		virtual bool has_children() const;
-		virtual int get_node_type() const;
 		virtual std::string get_name() const;
 		virtual std::string get_value() const;
 		virtual std::string get_content() const;
 	
 		// Mutators
-		virtual void append_child(node child);
-		virtual void replace_child(node replace, node child);
-		virtual void remove_child(node child);
+		virtual void append_child(node& child);
+		virtual void replace_child(node& replace, node& child);
+		virtual void remove_child(node& child);
 
-	protected:
-		// TODO: Clean this up
-		// Children of this node. Vector for dynamic size
-		std::vector<node> children; 
+	protected: 
 		int node_type;
+		std::vector<node> children;
 		std::string node_name;
-		node first_child;
-		node last_child;
 		std::string node_value;
 		std::string text_content;
+		node* first_child;
+		node* last_child;
 };
 
 // Element Class
