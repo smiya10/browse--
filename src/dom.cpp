@@ -1,6 +1,7 @@
 #include "dom.h"
+#include <algorithm>
 
-// Node classe
+// Node class
 
 node::node()
 {
@@ -31,6 +32,25 @@ std::string node::get_value() const
 std::string node::get_content() const
 {
     return this->text_content;
+}
+
+void node::append_child(node& child)
+{
+    children.push_back(child);    
+}
+
+void node::replace_child(node& replace, node& child)
+{
+    std::vector<node>::iterator pos;
+    pos = std::find(children.begin(), children.end(), replace);
+    
+}
+
+void node::remove_child(node& child)
+{
+    std::vector<node>::iterator pos;
+    pos = std::find(children.begin(), children.end(), replace);
+    children.erase(pos);    
 }
 
 // Element Class
