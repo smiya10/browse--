@@ -27,16 +27,20 @@ class node
 		virtual std::string get_content() const;
 	
 		// Mutators
+		// These methods allow us to pass objects neatly while meeting the condition specified by the member variables
 		virtual void append_child(node& child);
 		virtual void replace_child(node& replace, node& child);
 		virtual void remove_child(node& child);
 
 	protected: 
 		int node_type;
-		std::vector<node> children;
 		std::string node_name;
 		std::string node_value;
 		std::string text_content;
+		// The concept with the following is that we need to handle node as an abstract type
+		// As a pure node cannot exist, we cannot use node as a concrete type. If we do, C++ will attempt resolution
+		// Thus, we need to handle pointers to nodes. This means that we use node subtypes, but only handle the more abstract type of pointer.
+	    std::vector<node*> children;
 		node* first_child;
 		node* last_child;
 };

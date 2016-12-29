@@ -1,5 +1,6 @@
 #include "dom.h"
 #include <algorithm>
+// TODO: Add proper commenting
 
 // Node class
 
@@ -36,20 +37,21 @@ std::string node::get_content() const
 
 void node::append_child(node& child)
 {
-    children.push_back(child);    
+    children.push_back(&child);    
 }
 
-void node::replace_child(node& replace, node& child)
+void node::replace_child(node& child, node& replacement)
 {
-    std::vector<node>::iterator pos;
-    pos = std::find(children.begin(), children.end(), replace);
-    
+    std::vector<node*>::iterator pos;
+    pos = std::find(children.begin(), children.end(), &child);
+    *pos = &replacement;
+    // TODO: Iron out this method
 }
 
 void node::remove_child(node& child)
 {
-    std::vector<node>::iterator pos;
-    pos = std::find(children.begin(), children.end(), replace);
+    std::vector<node*>::iterator pos;
+    pos = std::find(children.begin(), children.end(), &child);
     children.erase(pos);    
 }
 
